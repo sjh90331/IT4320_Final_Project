@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reserve a Seat</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .error { color: red; }
+        .success { color: green; }
+        .seating-chart { font-family: monospace; white-space: pre; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ url_for('index') }}">Back to Home</a>
+        <h1>Reserve a Seat</h1>
+        <h2>Seating Chart</h2>
+        <div class="seating-chart">
+            {% for row in seating_chart %}
+                Row {{ loop.index }}: {% for seat in row %}{{ seat }} {% endfor %}<br>
+            {% endfor %}
+        </div>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="success">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST">
+            <label>First Name: <input type="text" name="first_name"></label><br><br>
+            <label>Last Name: <input type="text" name="last_name"></label><br><br>
+            <label>Row (1-12): <input type="number" name="seat_row" min="1" max="12"></label><br><br>
+            <label>Seat (1-4): <input type="number" name="seat_column" min="1" max="4"></label><br><br>
+            <input type="submit" value="Reserve Seat">
+        </form>
+    </div>
+</body>
+</html>

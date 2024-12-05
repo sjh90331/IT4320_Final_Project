@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bus Reservation System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bus Reservation System</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="error">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form method="POST" action="{{ url_for('choose_action') }}">
+            <input type="radio" name="action" value="admin"> Admin Login<br>
+            <input type="radio" name="action" value="reserve"> Reserve a Seat<br><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</body>
+</html>
